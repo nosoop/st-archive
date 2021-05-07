@@ -27,7 +27,13 @@ In this instance, Syncthing is configured to share
 
 I also have `crontab` configured to remove files older than two weeks from
 `/srv/share/.syncthing-targets/my-phone-DCIM/Camera`, and those deletes are synchronized
-to my phone.
+to my phone.  The crontab entry is:
+
+```
+# Sweep photos photos that have been linked to the photos archive
+# Syncthing performs a two-way sync, so this automatically frees up storage on the phone
+@daily     find '/srv/share/.syncthing-targets/my-phone-DCIM/Camera' -type f -links +1 -mtime +14 -delete
+```
 
 ## License
 
